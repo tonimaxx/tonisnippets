@@ -1,3 +1,30 @@
+"""
+Create function that returns output list of number grouped by the first digit
+Eg.  input [11,12,13,14,15,21,22,23,24,31,32,33]
+output ['11,12,13,14,15', '21,22,23,24', '31,32,33']
+#HCL #GOOGLE
+"""
+
+i = [11, 12, 13, 14, 15, 21, 22, 23, 24, 31, 32, 33]
+print(type(i))
+
+
+def group_number(intlist):
+    group = {}
+    for i in intlist:
+        left = str(i)[0:1]
+        if left in group:
+            group[left] += f",{str(i)}"
+        else:
+            group[left] = str(i)
+    return list(group.values())
+
+
+print(group_number(i))
+
+exit()
+
+
 # Find the highest number
 def find_highest(arr, highest_no):
     arr_sorted = sorted(set(arr))[::-1]
@@ -24,9 +51,9 @@ print(most_repeat(str))
 
 
 # Create list for number without using range
-def list_number(fromnumber, count):
+def list_number(start, count):
     s = "x" * count
-    return [i + fromnumber for i, _ in enumerate(list(s))]
+    return [i + start for i, _ in enumerate(list(s))]
 
 
 print(list_number(1, 10))
