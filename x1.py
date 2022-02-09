@@ -1,3 +1,68 @@
+
+def duplicate_least(str):
+    s = list(str)
+    x = {x:s.count(x) for x in set(s)}
+    all_values = list(x.values())
+    min_key = min(all_values)
+    p = [i for i, k in x.items() if k == min_key]
+    return p
+
+print(duplicate_least("aabbcdef"))
+
+exit()
+
+
+str = "maps,maps,maps,toni,toni,toni,toni,books,button,learn,start,phone,call,hangout,gvc,future,meeting,tech,shop,google,maps,books,button,learn,start,phone,call,hangout,google, gvc,future,meeting,tech,shop, google"
+str = "a,b,b,c,c,d"
+
+def most_repeat(str):
+    s = str.replace(' ','').split(",")
+    x = {x:s.count(x) for x in set(s)}
+
+    all_values = list(x.values())
+
+    max_key = max(all_values)
+
+    p = [i for i,k in x.items() if k == max_key]
+    return p
+
+print(most_repeat(str))
+
+exit()
+
+def merge_array(*arg):
+    unsorted_list = []
+    sorted_list = []
+    for a in arg:
+        unsorted_list.extend(a)
+
+    while unsorted_list:
+        minimum = unsorted_list[0]
+        for item in unsorted_list:
+            if item < minimum:
+                minimum = item
+        sorted_list.append(minimum)
+        unsorted_list.remove(minimum)
+
+    return sorted_list
+
+print(merge_array([7,2,3],[4,5,6]))
+
+exit()
+
+def reverse_string(str):
+    slice = str[::-1]
+
+    rev = []
+    for i in range(len(str)):
+        rev.append(str[len(str)-i-1])
+
+    return ''.join(rev)
+
+print(reverse_string("abcdef"))
+
+exit()
+
 """
 Create function that returns output list of number grouped by the first digit
 Eg.  input [11,12,13,14,15,21,22,23,24,31,32,33]
