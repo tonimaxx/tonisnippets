@@ -1,3 +1,29 @@
+"""
+write a program to verify the given number is palindrome or not
+ex: 121 - Palindrome
+    345 - Not Palindrome
+"""
+
+# Algorithmic Version
+def is_palindrome(str):
+    # create reverse string
+    s = list(str)
+    _rstr = []
+    for i in range(len(s)):
+        _rstr.append(s[len(s)-1-i])
+    rstr = ''.join(_rstr)
+    return 121 if str == rstr else 345
+
+print(is_palindrome("madam")) # 121
+print(is_palindrome("hello")) # 345
+
+exit()
+
+# Short version
+def is_palindrome_easy(str):
+    return 121 if str == str[::-1] else 345
+
+
 
 def duplicate_least(str):
     s = list(str)
