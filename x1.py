@@ -1,7 +1,35 @@
 """
+find index of the peak number in list
+eg.[1, 2, 3, 2, 1, 4, 2]
+3 and 4 is peak numbers because they are in the middle of less number
+3 is between 2 and 2
+4 is betweer 1 and 2
+so 3 and 4 are peak numbers
+then return the index position of them (computerized index number begin with 0)
+"""
+
+s = [1, 2, 3, 2, 1, 4, 2]
+
+def peak_index(s):
+    toret = []
+    thisnum = 0
+    result = {}
+    for i,k in enumerate(s):
+        if k < thisnum:
+            if i-1 != thisnum:
+                result[i] = thisnum
+                toret.append(i-1)
+        thisnum = k if k > thisnum else thisnum
+    return toret
+
+print(peak_index(s))
+
+
+"""
 write a program to verify the given number is palindrome or not
 ex: 121 - Palindrome
     345 - Not Palindrome
+https://collabedit.com/hwrn5
 """
 
 # Algorithmic Version
