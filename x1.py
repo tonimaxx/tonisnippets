@@ -24,6 +24,27 @@ def peak_index(s):
 
 print(peak_index(s))
 
+"""
+Reverse the list
+"""
+
+s = ["a","b","c","d"]
+
+def easy_reverse(s):
+    return s[::-1] # Python internal slice function can do backward
+
+print(easy_reverse(s))
+
+def reverse(s):
+    toret = []
+    for i in range(len(s)):
+        toret.append(s[len(s)-1-i])
+    return toret
+
+print(reverse(s))
+
+
+
 
 """
 write a program to verify the given number is palindrome or not
