@@ -1,25 +1,11 @@
-# dev-process-manager.zsh
-# Audit and kill dev server processes — Expo, Node, Python
-# Works on macOS (zsh). Tested on macOS Sonoma / Sequoia.
-#
-# Usage:
-#   source dev-process-manager.zsh   # or add to ~/.zshrc
-#
-# Commands:
-#   auditdev          — list dev servers (MCP hidden by default)
-#   auditdev --all    — include Claude MCP background servers
-#   auditmcp          — inspect MCP servers only
-#   killexpo          — kill Expo / Metro bundler processes
-#   killnode          — kill Node / Nodemon processes
-#   killport <port>   — kill whatever is running on a port
+# ~/.zsh_functions
+# Custom shell functions managed by the shellman skill.
+# Add a "# description: ..." line above each function for /shellman list.
 
-# Internal filter for Claude MCP servers (hidden from auditdev by default)
+# Internal filter for Claude MCP servers
 _mcp_filter="mcp-server|alpaca-mcp|context7-mcp|supabase-mcp|hermes-agent"
 
-# -----------------------------------------------------------------------------
-# auditdev — list running dev servers
-# flags: --all / -a  → also show Claude MCP background servers
-# -----------------------------------------------------------------------------
+# description: List running dev servers (Expo, Node, Python, ports). Use --all to include MCP servers.
 auditdev() {
   local show_mcp=0
   [[ "$1" == "--all" || "$1" == "-a" ]] && show_mcp=1
@@ -72,9 +58,7 @@ auditdev() {
   echo ""
 }
 
-# -----------------------------------------------------------------------------
-# auditmcp — inspect Claude MCP background servers
-# -----------------------------------------------------------------------------
+# description: List Claude Code MCP background servers with PID and count.
 auditmcp() {
   echo "\n=== Claude MCP Servers ==="
   echo "  (spawned by Claude Code — safe to leave, accumulate across sessions)"
@@ -96,9 +80,7 @@ auditmcp() {
   echo ""
 }
 
-# -----------------------------------------------------------------------------
-# killexpo — kill Expo Metro bundler processes
-# -----------------------------------------------------------------------------
+# description: Kill all running Expo and Metro bundler processes.
 killexpo() {
   local pids=$(ps aux | grep -E "expo|metro" | grep -v grep | awk '{print $2}')
   if [[ -z "$pids" ]]; then
@@ -108,9 +90,7 @@ killexpo() {
   fi
 }
 
-# -----------------------------------------------------------------------------
-# killnode — kill Node / Nodemon dev server processes
-# -----------------------------------------------------------------------------
+# description: Kill all running Node and Nodemon dev server processes.
 killnode() {
   local pids=$(ps aux | grep -E "node|nodemon|ts-node" | grep -v grep | awk '{print $2}')
   if [[ -z "$pids" ]]; then
@@ -120,10 +100,7 @@ killnode() {
   fi
 }
 
-# -----------------------------------------------------------------------------
-# killport — kill whatever process is on a given port
-# Usage: killport 3000
-# -----------------------------------------------------------------------------
+# description: Kill whatever process is holding a specific port. Usage: killport <port>
 killport() {
   if [[ -z "$1" ]]; then
     echo "Usage: killport <port>"
