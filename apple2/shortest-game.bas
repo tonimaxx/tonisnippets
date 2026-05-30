@@ -77,3 +77,36 @@
 ] 3 IF K$=CHR$(21) THEN DX=1:DY=0:IF K$=CHR$(11) THEN DY=-1:DX=0
 ] 4 X=X+DX:Y=Y+DY:IF X<1 OR X>40 OR Y<1 OR Y>24 THEN END
 ] 5 GOTO 2
+
+
+] ============================================================
+] THE REAL ONE-LINER — What the competition actually demanded
+] ============================================================
+]
+] Line 1: setup only (border, init vars, precompute CHR$ once)
+] Line 2: THE GAME — entire loop in one line, 213 characters
+]         under the Apple II limit of 239 chars per line
+]
+] The key insight: no IF statements for direction.
+] Pure boolean arithmetic instead.
+]
+] How the direction math works:
+]   In AppleSoft BASIC, a true comparison returns 1, false = 0
+]
+]   DX = (right pressed) - (left pressed)
+]        + DX * (not right) * (not left) * (not down) * (not up)
+]
+]   Right pressed:  DX = 1-0 + DX*0*1*1*1 = 1          (set right)
+]   Left pressed:   DX = 0-1 + DX*1*0*1*1 = -1         (set left)
+]   Down pressed:   DX = 0-0 + DX*1*1*0*1 = 0          (reset horizontal!)
+]   No dir key:     DX = 0-0 + DX*1*1*1*1 = DX         (keep direction)
+]
+]   Same logic for DY — pressing left/right zeros out DY automatically.
+]   Result: perfect 4-direction movement, no IF needed.
+]
+] Precomputing L$,R$,U$,D$ on line 1 saves ~80 chars on line 2.
+] Without that trick, line 2 would be ~290 chars — over the limit.
+] ============================================================
+
+1 HOME:X=20:Y=12:DX=1:DY=0:L$=CHR$(8):R$=CHR$(21):U$=CHR$(11):D$=CHR$(10):FOR I=1TO40:VTAB1:HTABI:PRINT"-":VTAB24:HTABI:PRINT"-":NEXT:FOR I=1TO24:VTABI:HTAB1:PRINT"|":VTABI:HTAB40:PRINT"|":NEXT
+2 VTABY:HTABX:PRINT"V":GETK$:VTABY:HTABX:PRINT".":DX=(K$=R$)-(K$=L$)+DX*(K$<>R$)*(K$<>L$)*(K$<>D$)*(K$<>U$):DY=(K$=D$)-(K$=U$)+DY*(K$<>D$)*(K$<>U$)*(K$<>R$)*(K$<>L$):X=X+DX:Y=Y+DY:IFX<2ORX>39ORY<2ORY>23THENEND:GOTO2
